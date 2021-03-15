@@ -1,0 +1,146 @@
+---
+title: "RPractices"
+author: "Titus"
+date: "14/03/2021"
+output: html_document
+---
+
+```{r}
+dt1<-read.table(file.choose(),sep = ",",header = TRUE)
+```
+
+```{r}
+dt1[1:4,]
+```
+
+```{r}
+dt2<-read.table(file.choose(),sep = ",",header = F)
+dt2[1:4,]
+```
+
+```{r}
+dt3<-read.table(file.choose(),sep = "\t",header = F)
+dt3
+```
+
+```{r}
+dt4<-read.table(file.choose(),sep = ";",header = T)
+dt4
+```
+
+```{r}
+dt5<-read.csv(file.choose(),header = T)
+dt5
+```
+
+```{r}
+dt6<-read_excel(file.choose(),sheet = 1)
+dt6
+```
+
+```{r}
+dt7<-read_excel(file.choose(),sheet = 2)
+dt7
+```
+
+```{r}
+dt8<-read_sas(file.choose())
+dt8[1:4,1:4]
+```
+
+```{r}
+dta<-read_excel(file.choose(),skip = 1,
+range = cell_cols(2:60))
+dta[1:4,]
+```
+
+```{r}
+dta_1<-dta %>% gather("2007-01":"2011-10",key = "year",value = "Passenger")
+dta_1[1:100,]
+```
+
+```{r}
+dta_2<-dta_1 %>% separate(year,into =c("year","month") )
+dta_2[1:4,]
+```
+
+```{r}
+dta_3<-dta_2 %>% spread(mode, Passenger)
+dta_3[1:4,]
+```
+
+```{r}
+dta_4<-dta_3 %>% .[,c(1:2,6:8)]
+dta_4[1:4,]
+```
+
+```{r}
+dta_5<-dta_4 %>% gather("Commuter Rail":"Light Rail",key ="Rail_Type",value = Passengers)
+dta_5[1:100,]
+```
+
+```{r}
+hflights[1:4,1:4]
+```
+
+```{r}
+f1<-filter(hflights,Year==2011,Month==2)
+f1[1:4,1:4]
+```
+
+```{r}
+f2<-filter(hflights, Dest %in% c("BOS","LAS"))
+f2[1:4,12:15]
+```
+
+```{r}
+f3<-filter(hflights,between(Distance,224,944))
+f3[1:6,13:16]
+```
+
+```{r}
+clw<-filter(hflights,Year==2011,Month==4)
+clw[1:4,1:4]
+```
+
+```{r}
+clw2<-filter(hflights,UniqueCarrier %in% c("AA","WN"))
+clw2[1:2,6:7]
+```
+
+```{r}
+arr<-arrange(hflights,Year,Month)
+arr[1:6,1:6]
+```
+
+```{r}
+arr1<-arrange(hflights,desc(DepTime))
+arr1[1:6,1:6]
+```
+
+```{r}
+sel<-select(hflights,Year,Month,FlightNum,AirTime)
+sel[1:4,]
+```
+
+```{r}
+sel_2<-select(hflights,starts_with("Dep"),starts_with("Arr"))
+sel_2[1:4,]
+```
+
+```{r}
+m<-hflights%>%select(ends_with("Delay"),Distance,AirTime)%>%mutate(time_gain=ArrDelay-DepDelay,speed=Distance/AirTime * 60)
+m[1:4,1:6]
+```
+
+```{r}
+summarise(hflights,Delay=sum(DepDelay,na.rm = TRUE))
+```
+
+```{r}
+hflights %>% group_by(UniqueCarrier) %>% summarise(delay =mean(DepDelay,na.rm=TRUE))
+```
+
+```{r}
+hflights %>% group_by(UniqueCarrier) %>% summarise(DepDelay=n())
+```
