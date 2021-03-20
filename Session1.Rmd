@@ -196,3 +196,105 @@ m[1:4,1:6]
 ```{r}
 summarise(hflights,Delay=sum(DepDelay,na.rm = TRUE))
 ```
+
+```{r}
+gy<-read.csv(file.choose(),header = T,)
+```
+
+```{r}
+glimpse(gy)
+```
+
+```{r}
+gy$Product<-as.factor(gy$Product)
+gy$Gender<-as.factor(gy$Gender)
+gy$MaritalStatus<-as.factor(gy$MaritalStatus)
+```
+
+```{r}
+glimpse(gy)
+```
+
+```{r}
+ggplot(gy,aes(Product,fill=Product))+geom_bar()+labs(title = "Bar Plot Of Product",x="product",y="numbers")+
+  geom_text(stat = 'count',aes(label=..count..),vjust=-0.3)
+```
+
+```{r}
+ggplot(gy,aes(x=Gender,fill=Gender))+geom_bar()+labs(x="Gender",y="Frequency",title = "Distribution of Gender")+
+  geom_text(stat="count",aes(label=..count..),vjust=0.3)
+```
+
+```{r}
+
+ggplot(gy, aes(x = Income)) +
+geom_histogram(color = "black", fill = "gray")+
+scale_x_continuous(labels = comma)+
+labs(title = "Histogram of Income",
+x="Income",y="Frequency")
+ ggplot(gy, aes(x = Income)) +
+geom_boxplot(color = "black", fill = "gray")+
+scale_x_continuous(labels = comma)+
+labs(title = "Boxplot of Income",x="Income")
+hist(gy$Income)
+hist(log(gy$Income))
+```
+
+```{r}
+ggplot(gy, aes(x = Education)) +
+geom_histogram(color = "black", fill = "gray")+
+scale_x_continuous(labels = comma)+
+labs(title = "Histogram of Education",
+x="Education",y="Frequency")
+ggplot(gy, aes(x = Education)) +
+geom_boxplot(color = "black", fill = "gray")+
+scale_x_continuous(labels = comma)+
+labs(title = "Boxplot of Education",x="Education")
+```
+
+```{r}
+b5<-ggplot(gy,aes(x =Product, fill=MaritalStatus))+
+geom_bar(position = "dodge")+
+labs(x="Products",y="Frequency",
+title="Product Buyers by Marital Status")
+b5_1<- b5+geom_text(stat="count",aes(label=..count..),
+position=position_dodge(width=0.9),
+vjust=-0.25)
+b5
+b5_1
+```
+
+```{r}
+bi1 <- ggplot(gy, aes(x=Product, y=Age, fill=Product)) +
+geom_boxplot()+
+labs(x= "Product", y= "Age",title="Product by Age")
+bi1
+```
+
+```{r}
+bi6<- ggplot(gy, aes(x=Age, y=Income
+)) + geom_point()+
+
+labs(x= "Age", y= "Income",
+title="Relationship between Age and Income")
+bi6
+```
+
+```{r}
+data2<-read.csv(file.choose(),header=T)
+str(data2)
+```
+
+```{r}
+result2<-t.test(data2$MorningClass,data2$EveningClass,alternative = "greater")
+result2
+```
+
+```{r}
+gy<-read.csv(file.choose(),header = T)
+```
+
+```{r}
+result1<-t.test(gy$Age~gy$MaritalStatus,alternative = "two.sided")
+result1
+```
