@@ -144,3 +144,64 @@ hflights %>% group_by(UniqueCarrier) %>% summarise(delay =mean(DepDelay,na.rm=TR
 ```{r}
 hflights %>% group_by(UniqueCarrier) %>% summarise(DepDelay=n())
 ```
+
+```{r}
+gymdata<-read.csv(file.choose(),header = TRUE)
+glimpse(gymdata)
+```
+
+```{r}
+gymdata$Product<-as.factor(gymdata$Product)
+gymdata$Gender<-as.factor(gymdata$Gender)
+gymdata$MaritalStatus<-as.factor(gymdata$MaritalStatus)
+```
+
+```{r}
+ggplot(gymdata,aes(x=Product,fill=Product))+geom_bar()+labs(x="Product",y="Frequency",title = "Distribution of Products")+geom_text(stat = "count",aes(label=..count..),vjust=0.3)
+```
+
+```{r}
+p1<-ggplot(gymdata,aes(x=Income))+geom_histogram(color="black",fill="gray")+scale_x_continuous(labels = comma)+labs(title = "Histogram of Income",x="Income",y="Frequency")
+p1
+```
+
+```{r}
+p2<-ggplot(gymdata,aes(x=Income))+geom_boxplot(color="black",fill="grey")+scale_x_continuous(labels = comma)+labs(title= "Boxplot of Income",x="Income")
+p2
+```
+
+```{r}
+grid.arrange(p2, p1, heights = c(1, 1))
+```
+
+```{r}
+p3<-ggplot(gymdata,aes(x=Product,fill=Gender))+geom_bar(position = "dodge")+labs(title = "Product Buyers By Gender",x="Products",y="Frequency")+geom_text(stat='count',aes(label=..count..)
+,position=position_dodge(width=0.9),
+vjust=-0.25)
+p3
+```
+
+```{r}
+p4<-ggplot(gymdata, aes(x=Product, y=Age, fill=Product)) +
+geom_boxplot()+
+labs(x= "Product", y= "Age",title="Product by Age")
+p4
+```
+
+```{r}
+data <- c(17,16, 20, 18, 16, 19, 22, 13 ,
+15 ,17 ,21, 14, 18, 12)
+result<-t.test(data, mu=20, alternative = "less")
+result
+```
+
+```{r}
+data2<-read.csv(file.choose(),header = T)
+
+
+```
+
+```{r}
+result2<-t.test(data2$MorningClass,data2$EveningClass,alternative = "greater")
+result2
+```
