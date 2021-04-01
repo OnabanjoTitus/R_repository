@@ -1,0 +1,50 @@
+---
+title: "Assesment1"
+author: "Titus"
+date: "31/03/2021"
+output: html_document
+---
+
+```{r}
+children<-c(40.3,55.0,45.7,43.3,50.3,45.9,53.5,43.0,44.2,44.0,33.6,55.1,48.8,50.4,37.8,60.3,46.6,47.4,44.0)
+
+adult<-c(20.0,30.2,2.2,7.5,4.4,22.2,16.6,14.5,21.4,3.3,10.0,1.0,4.4,1.3,8.1,
+         6.6,7.8,10.6,10.6,16.2,14.5,4.1,15.8,4.1,2.4,3.5,8.5,4.7,18.4)
+
+
+result<-t.test(children,adult,alternative = "greater")
+result
+```
+
+
+```{r}
+childrensheet<-read.csv(file.choose(),header=FALSE)
+glimpse(childrensheet)
+childrensheet$V1<-as.numeric(childrensheet$V1)
+
+ggplot(childrensheet,aes(x=V1)) +
+geom_boxplot(color = "black", fill = "gray")+
+scale_x_continuous(labels = comma)+
+labs(title = "Boxplot of sugarlevel for children",x="sugarlevel for children") 
+```
+
+```{r}
+adultsheet<-read.csv(file.choose(),header=FALSE)
+glimpse(adultsheet)
+adultsheet$V1<-as.numeric(adultsheet$V1)
+
+ggplot(adultsheet,aes(x=V1)) +
+geom_boxplot(color = "black", fill = "gray")+
+scale_y_continuous(labels = comma)+
+labs(title = "Boxplot of sugarlevel for adult",x="sugarlevel for adult") 
+```
+
+```{r}
+acute<-c(835,935,1665,764,1323,1030,1482,1306,593,2375,542,809,2474,1514,1977,1235,933,1114,-9,3072,608,499,1740,1189,1870,892,677)
+
+aml<-c(3237,1125,4655,3807,3593,2701,1737,3552,3255,4249,1870)
+
+result2<-t.test(acute,aml,alternative="greater")
+result2
+```
+
