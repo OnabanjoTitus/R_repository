@@ -298,3 +298,70 @@ gy<-read.csv(file.choose(),header = T)
 result1<-t.test(gy$Age~gy$MaritalStatus,alternative = "two.sided")
 result1
 ```
+
+```{r}
+dt<-read.csv(file.choose(),header = TRUE)
+```
+
+```{r}
+glimpse(dt)
+```
+
+```{r}
+p1<-ggplot(dt, aes(x=Age, y=Income))+geom_point()+
+labs(title = "Relationship between Income and Age",
+xlab="Age", ylab="Income")
+
+p1
+```
+
+```{r}
+cor(dt$Age,dt$Income)
+```
+
+```{r}
+attach(dt)
+m1<-lm(Income~Age,)
+summary(m1)
+```
+```{r}
+gj<-read.csv(file.choose(),header = TRUE)
+```
+
+
+```{r}
+gj
+p2<-ggplot(gj, aes(x=Bedrooms, y=Price))+geom_point()+
+labs(title = "Relationship between Bedroom and Price",
+xlab="Bedrooms", ylab="Price")
+
+p2
+cor(gj$Bedrooms,gj$Price)
+
+attach(gj)
+m1<-lm(Price~Bedrooms,)
+summary(m1)
+
+m2<-lm(Price~Bedrooms+Bathrooms)
+summary(m2)
+
+```
+
+```{r}
+dt<-read.csv(file.choose(),header = TRUE)
+str(dt)
+```
+```{r}
+mod1<-glm(Status~Gender+read+math,data = dt, family = binomial)
+m_out<-data.frame(summary(mod1)$coeff)
+m_out[,4]=format.pval(m_out[,4],eps = .001, digits = 2)
+m_out
+```
+
+```{r}
+data<-data.frame(Gender=c(1,0), math=c(60,60),
+read=c(60,60))
+pred<-predict(mod1, newdata = data, type = "response")
+predicted<- ifelse(pred > 0.5, "Hired", "Not Hired")
+predicted
+```
